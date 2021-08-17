@@ -1,0 +1,19 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "storefront_db_dev",
+    "user": "full_stack_user",
+    "password": "password123"
+  }
+}
+
+{
+  "test": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "storefront_db_test",
+    "user": "full_stack_user",
+    "password": "password123"
+  }
+}
