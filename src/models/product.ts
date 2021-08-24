@@ -14,7 +14,7 @@ export class ProductStore {
    */
   async index(): Promise<Product[]> {
     try {
-      const sqlQuery: string = 'SELECT  * FROM products'
+      const sqlQuery: string = 'SELECT * FROM products'
       const conn = await client.connect()
       const result = await conn.query(sqlQuery)
       conn.release()
@@ -34,7 +34,7 @@ export class ProductStore {
     try {
       const sqlQuery: string = 'SELECT * FROM products WHERE id = ($1)'
       const conn = await client.connect()
-      const result = await conn.query(sqlQuery)
+      const result = await conn.query(sqlQuery, [id])
       conn.release()
       const product = result.rows[0]
 

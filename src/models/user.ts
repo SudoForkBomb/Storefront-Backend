@@ -18,7 +18,7 @@ export class UserStore {
    */
   async index(): Promise<User[]> {
     try {
-      const sqlQuery: string = 'SELECT  * FROM users'
+      const sqlQuery: string = 'SELECT * FROM users'
 
       const conn = await client.connect()
       const result = await conn.query(sqlQuery)
@@ -41,7 +41,7 @@ export class UserStore {
       const sqlQuery: string = 'SELECT * FROM users WHERE id = ($1)'
 
       const conn = await client.connect()
-      const result = await conn.query(sqlQuery)
+      const result = await conn.query(sqlQuery, [id])
       conn.release()
       const user = result.rows[0]
 
