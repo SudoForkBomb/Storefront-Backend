@@ -10,12 +10,12 @@ const orderRoutes = (app: express.Application) => {
 const store = new OrderStore()
 
 const activeOrders = async (req: Request, res: Response) => {
-  const orders = store.showCurrentOrdersByUser(req.body.id)
+  const orders = await store.showCurrentOrdersByUser(req.body.id)
   res.json(orders)
 }
 
 const completeOrders = async (req: Request, res: Response) => {
-  const orders = store.showCompletedOrdersByUser(req.body.id)
+  const orders = await store.showCompletedOrdersByUser(req.body.id)
   res.json(orders)
 }
 

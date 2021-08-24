@@ -6,19 +6,19 @@ import { verifyAuthToken } from './tokens'
 const userRoutes = (app: express.Application) => {
   app.get('/users', verifyAuthToken, index)
   app.get('/users/{:id}', verifyAuthToken, show)
-  app.get('/users', verifyAuthToken, create)
+  app.post('/users', verifyAuthToken, create)
 }
 
 const store = new UserStore()
 const envToken = process.env.TOKEN_SECRET as string
 
 const index = async (req: Request, res: Response) => {
-  const users = store.index()
+  const users = await store.index()
   res.json(users)
 }
 
 const show = async (req: Request, res: Response) => {
-  const user = store.show(req.body.id)
+  const user = await store.show(req.body.id)
   res.json(user)
 }
 
@@ -29,7 +29,7 @@ const create = async (req: Request, res: Response) => {
     password: req.body.password,
   }
   try {
-    const user = store.create(newUser)
+    const user = await store.create(newUser)
     const token = jwt.sign({ user: user }, envToken)
     res.json(token)
   } catch (error) {

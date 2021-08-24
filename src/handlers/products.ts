@@ -6,19 +6,19 @@ import { verifyAuthToken } from './tokens'
 const productRoutes = (app: express.Application) => {
   app.get('/products', index)
   app.get('/products/{:id}', show)
-  app.get('/products', verifyAuthToken, create)
+  app.post('/products', verifyAuthToken, create)
 }
 
 const store = new ProductStore()
 const envToken = process.env.TOKEN_SECRET as string
 
 const index = async (req: Request, res: Response) => {
-  const products = store.index()
+  const products = await store.index()
   res.json(products)
 }
 
 const show = async (req: Request, res: Response) => {
-  const product = store.show(req.body.id)
+  const product = await store.show(req.body.id)
   res.json(product)
 }
 
@@ -29,7 +29,7 @@ const create = async (req: Request, res: Response) => {
     category: req.body.category,
   }
   try {
-    const product = store.create(newProduct)
+    const product = await store.create(newProduct)
     const token = jwt.sign({ product: product }, envToken)
     res.json(token)
   } catch (error) {
