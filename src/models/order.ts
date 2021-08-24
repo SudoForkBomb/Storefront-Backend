@@ -13,10 +13,10 @@ export class OrderStore {
   async showCurrentOrdersByUser(userID: number) {
     try {
       const conn = await client.connect()
-      const result = await conn.query(sqlQuery, [userID, 'active'])
+      const activeOrders = await conn.query(sqlQuery, [userID, 'active'])
       conn.release()
 
-      return result.rows
+      return activeOrders.rows
     } catch (error) {
       throw new Error(`Could not get active Orders.\n ${error}`)
     }
@@ -25,10 +25,10 @@ export class OrderStore {
   async showCompletedOrdersByUser(userID: number) {
     try {
       const conn = await client.connect()
-      const result = await conn.query(sqlQuery, [userID, 'complete'])
+      const completeOrders = await conn.query(sqlQuery, [userID, 'complete'])
       conn.release()
 
-      return result.rows
+      return completeOrders.rows
     } catch (error) {
       throw new Error(`Could not get completed Orders.\n ${error}`)
     }

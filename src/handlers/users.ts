@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { User, UserStore } from '../models/user'
+import { verifyAuthToken } from './tokens'
 
 const userRoutes = (app: express.Application) => {
   app.get('/users', verifyAuthToken, index)
@@ -10,18 +11,6 @@ const userRoutes = (app: express.Application) => {
 
 const store = new UserStore()
 const envToken = process.env.TOKEN_SECRET as string
-
-const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const authHeader = req.headers.authorization as string
-    const token = authHeader?.split(' ')[1] as string
-    const decodedToken = jwt.verify(token, envToken)
-    next()
-  } catch (error) {
-    res.status(401)
-    res.json(error)
-  }
-}
 
 const index = async (req: Request, res: Response) => {
   const users = store.index()
@@ -34,7 +23,7 @@ const show = async (req: Request, res: Response) => {
 }
 
 const create = async (req: Request, res: Response) => {
-  const newUser = {
+  const newUser: User = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     password: req.body.password,
@@ -48,3 +37,5 @@ const create = async (req: Request, res: Response) => {
     res.json(error)
   }
 }
+
+export default userRoutes
