@@ -3,7 +3,7 @@ import client from '../database'
 export type Product = {
   id?: number
   name: string
-  price: string
+  price: number
   category: string
 }
 
@@ -30,7 +30,7 @@ export class ProductStore {
    * @param id - id number to the desired product.
    * @returns
    */
-  async show(id: number): Promise<Product> {
+  async show(id: string): Promise<Product> {
     try {
       const sqlQuery: string = 'SELECT * FROM products WHERE id = ($1)'
       const conn = await client.connect()
@@ -59,6 +59,7 @@ export class ProductStore {
         product.price,
         product.category,
       ])
+
       const newProduct = result.rows[0]
       conn.release()
 
