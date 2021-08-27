@@ -5,7 +5,7 @@ import { verifyAuthToken } from './tokens'
 
 const productRoutes = (app: express.Application) => {
   app.get('/products', index)
-  app.get('/products/{:id}', show)
+  app.get('/products/:id', show)
   app.post('/products', verifyAuthToken, create)
 }
 
@@ -18,14 +18,14 @@ const index = async (req: Request, res: Response) => {
 }
 
 const show = async (req: Request, res: Response) => {
-  const product = await store.show(req.body.id)
+  const product = await store.show(req.params.id)
   res.json(product)
 }
 
 const create = async (req: Request, res: Response) => {
   const newProduct: Product = {
     name: req.body.name,
-    price: req.body.price,
+    price: parseInt(req.body.price),
     category: req.body.category,
   }
   try {
