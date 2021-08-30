@@ -8,6 +8,8 @@ This repo contains a basic Node and Express app based around a storefront backen
 
 ## Setup
 
+Below are the required steps to get the project up an running.
+
 ### ENV File
 
 The project uses dotenv to set environment variables. The following will need to be created within your .env file:
@@ -22,6 +24,11 @@ The project uses dotenv to set environment variables. The following will need to
 - SALT_ROUNDS
 - TOKEN_SECRET
 
+### Docker
+
+The database can be created and run using the command 'docker compose up -d', within the project directory, to create a new Postgres database using the docker-compose.yml.\
+If you have issues with the database generating properly, make sure your .env file is properly filled in.
+
 ### yarn install
 
 Installs required dependencies.
@@ -33,7 +40,7 @@ In the project directory, you can run:
 ### yarn start
 
 Runs the app using nodemon in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.\
 The page will reload if you make edits.\
 
 ### yarn test
@@ -48,7 +55,7 @@ Builds the app for production to the `dist` folder.\
 ### yarn watch
 
 Runs the watcher library and starts the application.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.\
 
 ## Technologies
 
