@@ -8,43 +8,46 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
-- Index
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products
-- [OPTIONAL] Products by category (args: product category)
+- [GET] /products - Returns All Products.
+- [GET] /products/{productId} - Show Individual Product by Id.
+- [POST] /products - Creates a new Product, [Requires Auth Token.]
 
 #### Users
 
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- [GET] /users - Returns All Users, [Requires Auth Token.]
+- [GET] /users/{userId} - Returns Individual User by Id, [Requires Auth Token.]
+- [POST] /users - Create new User, [Requires Auth Token.]
 
 #### Orders
 
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- [GET] /orders/{userId}/active - Returns Current Order of User, [Requires Auth Token.]
+- [GET] /orders/{userId}/complete - Returns all Completed Orders by User, [Requires Auth Token.]
 
 ## Data Shapes
 
 #### Product
 
-- id
-- name
-- price
-- [OPTIONAL] category
+- id: SERIAL PRIMARY KEY
+- name: VARCHAR(64) NOT NULL
+- price: integer NOT NULL
+- category: VARCHAR(100)
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
+- id: SERIAL PRIMARY KEY
+- first_name: VARCHAR(100)
+- last_name: VARCHAR(100)
+- password_digest: VARCHAR
 
 #### Orders
 
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id: SERIAL PRIMARY KEY
+- user_id: integer REFERENCES users(id)
+- status: VARCHAR(64)
+
+#### Order_Products
+
+- id: SERIAL PRIMARY KEY
+- quantity: integer
+- order_id: integer REFERENCES orders(id)
+- product_id: integer REFERENCES products(id)
