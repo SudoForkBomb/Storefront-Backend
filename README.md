@@ -24,6 +24,14 @@ The project uses dotenv to set environment variables. The following will need to
 - SALT_ROUNDS
 - TOKEN_SECRET
 
+### PostgresSQL Database
+
+You will need to create our databases outside of the project initially.\
+Start your postgres service, then login using the command 'psql postgres'.\
+Once logged, run the following command to create the database. 'CREATE DATABASE storefront_db_dev;'\
+Now we can use db-migrate to create our tables using the migrations. Run 'db-migrate up'\
+**Make sure you've set up your .env and database.json files first or you will run into issues creating and running the database.**\
+
 ### Docker
 
 The database can be created and run using the command 'docker compose up -d', within the project directory, to create a new Postgres database using the docker-compose.yml.\
