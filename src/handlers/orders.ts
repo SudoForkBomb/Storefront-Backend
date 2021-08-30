@@ -8,11 +8,21 @@ const orderRoutes = (app: express.Application) => {
 }
 const store = new OrderStore()
 
+/**
+ * Retrieves the current Order for the User.
+ * @param req
+ * @param res
+ */
 const activeOrder = async (req: Request, res: Response) => {
   const order = await store.showCurrentOrderByUser(req.params.id)
   res.json(order)
 }
 
+/**
+ * Retrieves a list of complete Orders for the User.
+ * @param req
+ * @param res
+ */
 const completeOrders = async (req: Request, res: Response) => {
   const orders = await store.showCompletedOrdersByUser(req.params.id)
   res.json(orders)

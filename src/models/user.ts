@@ -32,9 +32,9 @@ export class UserStore {
   }
 
   /**
-   * Search for a user account by user id.
+   * Search for a User account by User id.
    * @param id - id number to the desired User account.
-   * @returns
+   * @returns desired User Account.
    */
   async show(id: string): Promise<User> {
     try {
@@ -52,8 +52,8 @@ export class UserStore {
   }
 
   /**
-   * Create a new user account.
-   * @param user - User object with desired details(firstName, lastName, password).
+   * Create a new User account.
+   * @param user - User object with desired details(first_name, last_name, password_digest).
    * @returns A copy of the new User account.
    */
   async create(user: User): Promise<User> {
@@ -82,6 +82,9 @@ export class UserStore {
     }
   }
 
+  /**
+   * Deletes all Users in table.
+   */
   async deleteAll() {
     try {
       const sqlQuery: string = 'DELETE FROM users'

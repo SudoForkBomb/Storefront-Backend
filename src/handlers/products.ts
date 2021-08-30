@@ -12,16 +12,31 @@ const productRoutes = (app: express.Application) => {
 const store = new ProductStore()
 const envToken = process.env.TOKEN_SECRET as string
 
+/**
+ * Retrieves list of all Products.
+ * @param req
+ * @param res
+ */
 const index = async (req: Request, res: Response) => {
   const products = await store.index()
   res.json(products)
 }
 
+/**
+ * Retrieves a single Product by id.
+ * @param req
+ * @param res
+ */
 const show = async (req: Request, res: Response) => {
   const product = await store.show(req.params.id)
   res.json(product)
 }
 
+/**
+ * Creates a new Product.
+ * @param req
+ * @param res
+ */
 const create = async (req: Request, res: Response) => {
   const newProduct: Product = {
     name: req.body.name,

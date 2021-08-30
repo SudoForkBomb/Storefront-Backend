@@ -9,8 +9,8 @@ export type Product = {
 
 export class ProductStore {
   /**
-   * Returns a list of all products.
-   * @returns List of all products.
+   * Returns a list of all Products.
+   * @returns List of all Products.
    */
   async index(): Promise<Product[]> {
     try {
@@ -26,9 +26,9 @@ export class ProductStore {
   }
 
   /**
-   * Search for a products by product id.
-   * @param id - id number to the desired product.
-   * @returns
+   * Search for a Products by Product id.
+   * @param id - id number to the desired Product.
+   * @returns desired Product
    */
   async show(id: string): Promise<Product> {
     try {
@@ -46,7 +46,7 @@ export class ProductStore {
 
   /**
    * Create a new Product.
-   * @param user - Product object with desired details(name, price, category).
+   * @param product - Product object with desired details(name, price, category).
    * @returns A copy of the new Product.
    */
   async create(product: Product): Promise<Product> {
@@ -71,6 +71,9 @@ export class ProductStore {
     }
   }
 
+  /**
+   * Deletes all Products in table.
+   */
   async deleteAll() {
     try {
       const sqlQuery: string = 'DELETE FROM products'

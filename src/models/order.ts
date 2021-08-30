@@ -10,6 +10,10 @@ const ordersByUserSqlQuery: string =
   'SELECT * FROM orders WHERE user_id = ($1) AND status = ($2)'
 
 export class OrderStore {
+  /**
+   * Returns a list of all Orders.
+   * @returns List of all Orders.
+   */
   async index(): Promise<Order[]> {
     try {
       const sqlQuery: string = 'SELECT * FROM orders'
@@ -23,6 +27,11 @@ export class OrderStore {
     }
   }
 
+  /**
+   * Search for a Order by Order id.
+   * @param id - id number to the desired Order.
+   * @returns desired Order.
+   */
   async show(id: string): Promise<Order> {
     try {
       const sqlQuery: string = 'SELECT * FROM orders WHERE id = ($1)'
@@ -37,6 +46,11 @@ export class OrderStore {
     }
   }
 
+  /**
+   * Create a new Order.
+   * @param product - Order object with desired details(user_id, status).
+   * @returns A copy of the new Product.
+   */
   async create(order: Order): Promise<Order> {
     try {
       const sqlQuery: string =
@@ -55,6 +69,9 @@ export class OrderStore {
     }
   }
 
+  /**
+   * Deletes all Orders in table.
+   */
   async deleteAll() {
     try {
       const sqlQuery: string = 'DELETE FROM orders'
@@ -67,9 +84,9 @@ export class OrderStore {
   }
 
   /**
-   *
-   * @param user_id
-   * @returns
+   * Returns the current Order for the desired User.
+   * @param user_id - Id of the desired User.
+   * @returns an Order with an 'active' status.
    */
   async showCurrentOrderByUser(user_id: string): Promise<Order> {
     try {
@@ -87,9 +104,9 @@ export class OrderStore {
   }
 
   /**
-   *
-   * @param user_id
-   * @returns
+   * Returns a list all complete Orders for the desired User.
+   * @param user_id - Id of the desired User.
+   * @returns list of Orders 'complete' statuses.
    */
   async showCompletedOrdersByUser(user_id: string): Promise<Order[]> {
     try {

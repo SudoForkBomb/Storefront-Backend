@@ -91,7 +91,7 @@ describe('Token Req - Orders API Endpoints', () => {
       status: 'active',
     })
   })
-  it('Retrieve Completed Orders by UserID in Database', async () => {
+  it('Token Req - Retrieve Completed Orders by UserID in Database', async () => {
     const result = await request
       .get(`/orders/${testUserId}/active`)
       .set('Authorization', 'Bearer ' + token)

@@ -3,6 +3,12 @@ import jwt from 'jsonwebtoken'
 
 const envToken = process.env.TOKEN_SECRET as string
 
+/**
+ * Verifies the Request Auth Token.
+ * @param req
+ * @param res
+ * @param next
+ */
 export const verifyAuthToken = (
   req: Request,
   res: Response,
