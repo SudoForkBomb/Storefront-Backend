@@ -70,4 +70,15 @@ export class ProductStore {
       )
     }
   }
+
+  async deleteAll() {
+    try {
+      const sqlQuery: string = 'DELETE FROM products'
+      const conn = await client.connect()
+      await conn.query(sqlQuery)
+      conn.release()
+    } catch (error) {
+      throw new Error(`Error Deleting Products.\n ${error}`)
+    }
+  }
 }

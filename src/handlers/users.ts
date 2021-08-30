@@ -18,15 +18,15 @@ const index = async (req: Request, res: Response) => {
 }
 
 const show = async (req: Request, res: Response) => {
-  const user = await store.show(parseInt(req.body.id))
+  const user = await store.show(req.params.id)
   res.json(user)
 }
 
 const create = async (req: Request, res: Response) => {
   const newUser: User = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    password: req.body.password,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    password_digest: req.body.password_digest,
   }
   try {
     const user = await store.create(newUser)

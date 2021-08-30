@@ -54,12 +54,24 @@ export class OrderStore {
       )
     }
   }
+
+  async deleteAll() {
+    try {
+      const sqlQuery: string = 'DELETE FROM orders'
+      const conn = await client.connect()
+      await conn.query(sqlQuery)
+      conn.release()
+    } catch (error) {
+      throw new Error(`Error Deleting Orders.\n ${error}`)
+    }
+  }
+
   /**
    *
    * @param user_id
    * @returns
    */
-  async showCurrentOrderByUser(user_id: number): Promise<Order> {
+  async showCurrentOrderByUser(user_id: string): Promise<Order> {
     try {
       const conn = await client.connect()
       const activeOrders = await conn.query(ordersByUserSqlQuery, [
@@ -79,7 +91,7 @@ export class OrderStore {
    * @param user_id
    * @returns
    */
-  async showCompletedOrdersByUser(user_id: number): Promise<Order[]> {
+  async showCompletedOrdersByUser(user_id: string): Promise<Order[]> {
     try {
       const conn = await client.connect()
       const completeOrders = await conn.query(ordersByUserSqlQuery, [

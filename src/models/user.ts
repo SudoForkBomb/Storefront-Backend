@@ -6,9 +6,9 @@ const pepper = process.env.BCRYPT_PASSWORD as string
 
 export type User = {
   id?: number
-  firstName: string
-  lastName: string
-  password: string
+  first_name: string
+  last_name: string
+  password_digest?: string
 }
 
 export class UserStore {
@@ -36,7 +36,7 @@ export class UserStore {
    * @param id - id number to the desired User account.
    * @returns
    */
-  async show(id: number): Promise<User> {
+  async show(id: string): Promise<User> {
     try {
       const sqlQuery: string = 'SELECT * FROM users WHERE id = ($1)'
 
@@ -62,10 +62,13 @@ export class UserStore {
         'INSERT INTO users (first_name, last_name, password_digest) VALUES($1, $2, $3) RETURNING *'
 
       const conn = await client.connect()
-      const hash = bcrypt.hashSync(user.password + pepper, parseInt(saltRounds))
+      const hash = bcrypt.hashSync(
+        user.password_digest + pepper,
+        parseInt(saltRounds)
+      )
       const result = await conn.query(sqlQuery, [
-        user.firstName,
-        user.lastName,
+        user.first_name,
+        user.last_name,
         hash,
       ])
       conn.release()
@@ -74,8 +77,19 @@ export class UserStore {
       return newUser
     } catch (error) {
       throw new Error(
-        `Error creating new User(${user.firstName}, ${user.lastName}).\n ${error}`
+        `Error creating new User(${user.first_name}, ${user.last_name}).\n ${error}`
       )
+    }
+  }
+
+  async deleteAll() {
+    try {
+      const sqlQuery: string = 'DELETE FROM users'
+      const conn = await client.connect()
+      await conn.query(sqlQuery)
+      conn.release()
+    } catch (error) {
+      throw new Error(`Error Deleting Users.\n ${error}`)
     }
   }
 }
